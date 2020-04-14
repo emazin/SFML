@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-void movement(sf::Shape& shape, sf::Event event)
+void movement(sf::Transformable& shape, sf::Event event)
 {
     if(event.key.code == sf::Keyboard::Left)
         shape.move(-1, 0);
@@ -16,6 +16,9 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(600, 400), "Mario!");
     sf::CircleShape shape(10.f);
+    sf::Texture image;
+    image.loadFromFile("mario.png");
+    sf::Sprite mario(image, sf::IntRect(100, 100, 120, 120));
     shape.setFillColor(sf::Color::Green);
 
     while (window.isOpen())
@@ -27,11 +30,11 @@ int main()
                 window.close();
 
             if (event.type == sf::Event::KeyPressed)
-                movement(shape, event);
+                movement(mario, event);
         }
 
         window.clear();
-        window.draw(shape);
+        window.draw(mario);
         window.display();
     }
 
